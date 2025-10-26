@@ -39,14 +39,14 @@ public:
 		cin >> confirm_pass;
 
 		if (password != confirm_pass) {
-			cout << "Hasla sa rozne!\n";
+			cout << ">--Hasla sa rozne!--<\n";
 		}
 
 		User NewUser(username, password);
 		users.push_back(NewUser);
 		if (password == confirm_pass)
 		{
-		cout << "Zostales pomyslnie zarejestrowany!....\n";
+		cout << ">--Zostales pomyslnie zarejestrowany!--<\n";
 		}
 	}
 
@@ -54,11 +54,11 @@ public:
 		for (int i = 0; i < users.size(); i++)
 		{
 			if (users[i].getUsername() == name && users[i].getPassword() == pass) {
-				cout << "Zostales pomyslnie zalogowany!\n";
+				cout << ">--Zostales pomyslnie zalogowany!--<\n";
 				return true;
 			}
 			else {
-				cout << "Nie poprawny login lub haslo!\n";
+				cout << ">--Nie poprawny login lub haslo!--<\n";
 				return false;
 			}
 		}
@@ -74,7 +74,7 @@ public:
 
 	void SearchForUser(string username) {
 		for (int i = 0; i < users.size(); i++) {
-			if (users[i].getUsername() == username) cout << "Uzytkownik Znaleziony! \n" << endl;
+			if (users[i].getUsername() == username) cout << ">--Uzytkownik Znaleziony!--< \n" << endl;
 		}
 	}
 
@@ -83,7 +83,7 @@ public:
 		{
 			if (users[i].getUsername() == name && users[i].getPassword() == pass) {
 				users.erase(users.begin() + i);
-				cout << "Pomyslnie Usunieto Uzytkownika! \n";
+				cout << ">--Uzytkownik zostal usuniety!--<\n"
 			}
 		}
 	}
@@ -137,10 +137,10 @@ int main()
 			cout << ">> ";
 			cin >> password;
 
-
 			usermanager.DeleteUser(username, password);
 			break;
 		case 6:
+			cout << ">--Wybrano Zakonczenie Programu!--\n<"
 			program = false;
 
 			break;
