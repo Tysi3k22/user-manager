@@ -4,106 +4,151 @@
 using namespace std;
 
 class User {
-  private:
-    string username, password;
-  public:
-    string User(string username, string password) {
-      username = name;
-      password = pass;
-    }
-  
-    string GetUsername() {
-      return username;
-    }
-    string GetPassword() {
-      return password;
-    }
-}
+private:
+	string username, password;
+
+public:
+	User(string name, string pass) {
+		username = name;
+		password = pass;
+	}
+
+	string getUsername() {
+		return username;
+	}
+
+	string getPassword() {
+		return password;
+	}
+};
 
 class UserManager {
-  private:
-    vector<User> users;
-  public:
-    void RegisterUser() {
-      string username, password;
-  
-      cout << "Podaj Nazwe Uzytkownika: \n>> ";
-      cin >> username;
-      cout << "Podaj Haslo: \n>> ";
-      cin >> password;
-  
-      User NewUser(username, password);
-      users.pushback(NewUser);
-  }
+private:
+	vector<User> users;
+public:
+	void RegisterUser() {
+		string username, password, confirm_pass;
+		cout << "Podaj Nazwe Uzytkownika : \n";
+		cout << ">> ";
+		cin >> username;
+		cout << "Podaj Haslo: \n";
+		cout << ">> ";
+		cin >> password;
+		cout << "Potwierdz Haslo: \n";
+		cout << ">> ";
+		cin >> confirm_pass;
 
-  void LoginUser(string name, string pass) {
-    for(int i = 0; i < users.size(); i++){
-      if(users[i].GetUsername() == name && users[i].GetPassword() == pass){
-        cout << "Zostales pomyslnie zalogowany!\n";
-      }
-    }
-  }
+		if (password != confirm_pass) {
+			cout << "Hasla sa rozne!\n";
+		}
 
-  void ShowUsers() {
-    for(int i = 0; i < users.size(); i++){
-      cout << users[i].GetUsername() << endl;
-    }
-  }
+		User NewUser(username, password);
+		users.push_back(NewUser);
+		if (password == confirm_pass)
+		{
+		cout << "Zostales pomyslnie zarejestrowany!....\n";
+		}
+	}
 
-  void SearchUser(string name) {
-    for(int i = 0; i < users.size(); i++){
-      if(users[i].GetUsername() == name){
-        cout << "Znaleziono uzytkownika " << name << endl;
-      }
-  }
+	bool LoginUser(string name, string pass) {
+		for (int i = 0; i < users.size(); i++)
+		{
+			if (users[i].getUsername() == name && users[i].getPassword() == pass) {
+				cout << "Zostales pomyslnie zalogowany!\n";
+				return true;
+			}
+			else {
+				cout << "Nie poprawny login lub haslo!\n";
+				return false;
+			}
+		}
+	}
 
-  void DeleteUser(string name) {
-    for(int i = 0; i < users.size(); i++){
-      if(users[i].GetUsername() == name){
-        users[i].erase(users.begin() + i)
-      }
-  }
-  
+	void ShowUsers() {
+		for (int i = 0; i < users.size(); i++)
+		{
+			string show = users[i].getUsername();
+			cout << show << endl;
+		}
+	}
+
+	void SearchForUser(string username) {
+		for (int i = 0; i < users.size(); i++) {
+			if (users[i].getUsername() == username) cout << "Uzytkownik Znaleziony! \n" << endl;
+		}
+	}
+
+	void DeleteUser(string name, string pass) {
+		for (int i = 0; i < users.size(); i++)
+		{
+			if (users[i].getUsername() == name && users[i].getPassword() == pass) {
+				users.erase(users.begin() + i);
+				cout << "Pomyslnie Usunieto Uzytkownika! \n";
+			}
+		}
+	}
+};
+
+
+int main()
+{
+	UserManager usermanager;
+	bool program = true;
+	int wybor;
+	string username, password;
+
+	while (program) {
+		cout << " 1. Zarejestrowac uzytkownika\n 2. Zalogowac uzytkownika\n 3. Pokazac liste uzytkownikow\n 4. Wyszukac uzytkownika\n 5. Usunac uzytkownika\n 6. Zakonczyc program\n";
+		cout << ">> ";
+		cin >> wybor;
+
+		switch (wybor)
+		{
+		case 1:
+			usermanager.RegisterUser();
+			break;
+		case 2:
+			cout << "Wprowadz login: \n";
+			cout << ">> ";
+			cin >> username;
+
+			cout << "Wprowadz haslo: \n";
+			cout << ">> ";
+			cin >> password;
+
+			usermanager.LoginUser(username, password);
+			break;
+		case 3:
+			usermanager.ShowUsers();
+			break;
+		case 4:
+			cout << "Podaj nazwe uzytkownika ktorego szukasz: \n";
+			cout << ">> ";
+			cin >> username;
+
+			usermanager.SearchForUser(username);
+			break;
+		case 5:
+			cout << "Podaj nazwe uzytkownika ktorego chcesz usunac: \n";
+			cout << ">> ";
+			cin >> username;
+				
+			cout << "Podaj haslo tego uzytkownika: \n";
+			cout << ">> ";
+			cin >> password;
+
+
+			usermanager.DeleteUser(username, password);
+			break;
+		case 6:
+			program = false;
+
+			break;
+		default:
+			break;
+		
+	}
 }
 
-int Main() {
-  UserManager usermanager;
-  bool program = true;
-  int wybor;
-  string username, password;
-  
-  while(program) {
-    cout << "Co chcesz zrobic?\n";
-    cout << "1. Zarejestrowac uzytkownika \n2. Zalogowac uzytkownika \n3. Pokazac uzytkownikow \n4. Wyszukac uzytkownika \n5. Usunac uzytkownika\n>> ";
-    cin >> wybor;
-    switch(wybor){
-      case 1:
-          usermanager RegisterUser();
-        break;
-      case 2:
-          cout << "Podaj Login: \n>> ";
-          cin >> username;
-          cout << "Podaj Haslo: \n>> ";
-          cin >> password;
-          usermanager LoginUser(string username, string password);
-        break;
-      case 3:
-          usermanager ShowUsers();
-        break;
-      case 4:
-          cout << "Podaj nazwe uzytkownika ktorego chcesz wyszukac: \n>> ";
-          cin >> username;
-          usermanager SearchUser(string username);
-        break;
-      case 5:
-          cout << "Podaj nazwe uzytkownika ktorego chcesz usunac: \n>> ";
-          cin >> username;
-          usermanager DeleteUser(string username);
-        break;
-      case 6:
-          program = false;
-        break;
-    }
-  }
-
 }
+	
